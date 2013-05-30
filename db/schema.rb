@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130530220104) do
+ActiveRecord::Schema.define(:version => 20130530232605) do
 
   create_table "clients", :force => true do |t|
     t.string   "name",       :limit => 30
@@ -35,10 +35,8 @@ ActiveRecord::Schema.define(:version => 20130530220104) do
   add_index "invoices", ["client_id"], :name => "index_invoices_on_client_id"
 
   create_table "invoices_products", :force => true do |t|
-    t.integer  "invoice_id"
-    t.integer  "product_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer "invoice_id"
+    t.integer "product_id"
   end
 
   create_table "products", :force => true do |t|
