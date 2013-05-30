@@ -8,6 +8,14 @@
 </head>
 <body>
 
+<div>
+	<%=link_to "Clients", clients_path%> | 
+	<%=link_to "Products", products_path%> | 
+	<%=link_to "Invoices", invoices_path%> |
+	<%=link_to "NEW Invoice", new_invoice_path%>
+</div>
+<hr/>
+
 <%= yield %>
 
 </body>

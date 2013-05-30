@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130527183153) do
+ActiveRecord::Schema.define(:version => 20130530220104) do
 
   create_table "clients", :force => true do |t|
     t.string   "name",       :limit => 30
@@ -24,5 +24,29 @@ ActiveRecord::Schema.define(:version => 20130527183153) do
   end
 
   add_index "clients", ["name", "lastname", "age"], :name => "clients_by_fullname"
+
+  create_table "invoices", :force => true do |t|
+    t.float    "total"
+    t.integer  "client_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "invoices", ["client_id"], :name => "index_invoices_on_client_id"
+
+  create_table "invoices_products", :force => true do |t|
+    t.integer  "invoice_id"
+    t.integer  "product_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "products", :force => true do |t|
+    t.string   "name"
+    t.float    "price"
+    t.string   "sku"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
 end

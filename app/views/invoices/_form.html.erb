@@ -1,0 +1,34 @@
+<%= form_for(@invoice) do |f| %>
+  <% if @invoice.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@invoice.errors.count, "error") %> prohibited this invoice from being saved:</h2>
+
+      <ul>
+      <% @invoice.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :client %><br />
+    <%= f.collection_select(:client_id, @clients, :id, :full_name, :include_blank=>"Select one client...") %>
+  </div>
+
+  <div class="field">
+    <%= f.label :products %><br />
+    <ul style="list-style:none">
+    <%Product.all.each do |product|%>
+      <li>
+        <%=f.check_box :product_ids, {:name=>"invoice[product_ids][]"},product.id %> 
+        <%=f.label product.name %>
+      </li>
+    <%end%>
+    </ul>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
