@@ -1,5 +1,7 @@
 class InvoicesController < ApplicationController
   before_filter :clean_arrays, :only=>[:create,:update]
+  before_filter :authorize
+  
   
   def clean_arrays
     params[:invoice][:product_ids].delete("0")

@@ -1,7 +1,14 @@
 J360::Application.routes.draw do
+  get "iniciar_session" => "sessions#new", :as=>:login
+  post "iniciar_session" => "sessions#create", :as=>:login
+  delete "cerrar_session" => "sessions#destroy", :as=>:logout
+
+
+  resources :users, :except=>[:destroy, :show, :index]
   resources :invoices
   resources :products
   resources :clients
+  
 
 
   # The priority is based upon order of creation:
@@ -53,7 +60,7 @@ J360::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'clients#index'
+  root :to => 'welcome#index'
 
   # See how all your routes lay out with "rake routes"
 
