@@ -1,4 +1,12 @@
 J360::Application.routes.draw do
+  root :to => "welcome#index"
+  
+  resources :users, :only=>[:new, :create, :edit, :update]
+  get "recovery_password"=>"users#recovery_password", :as=>:recovery_password
+  post "recovery_password"=>"users#send_recovery_email", :as=>:send_recovery_email
+  get "signin"=>"sessions#new", :as=>:signin
+  post "signin"=> "sessions#create", :as=>:signin
+  delete "signout"=>"sessions#destroy", :as=>:signout
   resources :invoices
   resources :products
   resources :clients
@@ -53,8 +61,7 @@ J360::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'clients#index'
-
+  
   # See how all your routes lay out with "rake routes"
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
