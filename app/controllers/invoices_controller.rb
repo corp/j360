@@ -1,4 +1,5 @@
 class InvoicesController < ApplicationController
+  before_filter :authenticate_user!
   before_filter :clean_arrays, :only=>[:create,:update]
   
   def clean_arrays

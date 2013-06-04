@@ -1,4 +1,8 @@
 J360::Application.routes.draw do
+  devise_for :admins, :controllers => { :sessions => "admins_sessions" }
+
+  devise_for :users
+
   resources :invoices
   resources :products
   resources :clients
@@ -53,7 +57,7 @@ J360::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'clients#index'
+  root :to => 'welcome#index'
 
   # See how all your routes lay out with "rake routes"
 
