@@ -12,12 +12,22 @@
 	<%=link_to "Clients", clients_path%> | 
 	<%=link_to "Products", products_path%> | 
 	<%=link_to "Invoices", invoices_path%> |
-	<%=link_to "NEW Invoice", new_invoice_path%>
+	<%=link_to "NEW Invoice", new_invoice_path%> |
+	<%= link_to "cambiar avatar", upload_avatar_path(:id=>current_admin.id) %>
+	<%= link_to "ajax_link", ajax_route_path(:var=>"hola mundo ajax"), :remote=>true, :method=>:post, :id=>"ajax_link"  %>
+	<div id ="ajax_msg" style="display:none">
+	 Enviando peticion...
+	</div>
 </div>
 <hr/>
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
 <%= yield %>
-
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function(){
+    $("#ajax_link").on("ajax:beforeSend", function(evt, xhr, settings){$("#ajax_msg").show();$("#ajax_msg").html("<h2>Enviando peticion</h2>")});
+    $("#ajax_link").on("ajax:success", function(evt, data, status, xhr){$("#ajax_msg").html(data)});
+  })
+</script>
 </body>
 </html>

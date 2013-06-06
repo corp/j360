@@ -10,7 +10,9 @@ gem 'mysql2'
 gem 'pg'
 gem 'unicorn'
 gem "devise"
-
+gem "rmagick"
+gem 'carrierwave'
+gem 'fog'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

@@ -1,0 +1,5 @@
+<%= form_for @admin, :url=>upload_avatar_path(:id=>@admin.id),:html=>{:multipart=>true}  do |f|%>
+  <%= image_tag(@admin.avatar.thumb.url) if !@admin.avatar.url.blank? %>
+  <%= f.label :avatar %> : <%= f.file_field :avatar %>
+  <%= f.submit %>
+<% end %>

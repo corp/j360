@@ -53,7 +53,13 @@ class ClientsController < ApplicationController
       end
     end
   end
-
+  
+  def make_it_admin
+    @client = Client.find(params[:id])
+    @client.is_admin=true
+    @client.save
+  end
+  
   # PUT /clients/1
   # PUT /clients/1.json
   def update
