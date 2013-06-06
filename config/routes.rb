@@ -4,7 +4,10 @@ J360::Application.routes.draw do
   delete "cerrar_session" => "sessions#destroy", :as=>:logout
 
 
-  resources :users, :except=>[:destroy, :show, :index]
+  resources :users, :except=>[:destroy, :show, :index] 
+  get "recovery_password"=>"users#recovery_password"
+  post "send_password_recovery"=>"users#send_password_recovery"
+  
   resources :invoices
   resources :products
   resources :clients

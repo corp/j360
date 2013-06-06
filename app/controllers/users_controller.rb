@@ -48,4 +48,18 @@ class UsersController < ApplicationController
     end
   end
 
+  def recovery_password
+  end
+  
+  def send_password_recovery
+    @user = User.where(:email=>params[:email]).first
+    if @user
+      @user.reset_password!
+      UserMailer.send_recovery_password(@user).deliver
+      redirect_to login_path, notice: "Su nueva contasenia ha sido enviada a su correo"
+    else
+      redirect_to login_path, notice: "No se encontro ese correo"
+    end
+  end
+  
 end

@@ -12,6 +12,7 @@
   <% if current_user.nil? %>
     <%= link_to "Registrarse", new_user_path %> |
 	  <%= link_to "Iniciar Sesion", login_path %> |
+	  <%= link_to "Olvide mi contraseña", recovery_password_path %> |
   <% else %>
     <%=link_to "Clients", clients_path%> | 
 	  <%=link_to "Products", products_path%> | 
