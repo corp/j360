@@ -1,0 +1,37 @@
+$hover: red;
+$active: blue;
+$visited: green;
+$background-color: black;
+@mixin nav-base{
+	li.nav-option{
+			display: inline-block;
+			border-right: 1px solid;
+			margin-right: 5px;
+			padding-right: 5px;
+			a{
+				font-style:italic;
+				&:hover{
+					color: $hover;
+				}
+				&:active{
+					color: $active;
+				}
+				&:visited{
+					color: $visited;
+				}
+			}
+	}
+}
+.nav{
+	ul{
+		list-style: none;
+		@include nav-base;
+	}
+}
+
+.nav-espacial{
+	@extend .nav;
+	background-color: $background-color;
+	color: white;
+	a{color:white;}
+}

@@ -8,4 +8,9 @@ class Admin < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :avatar
   # attr_accessible :title, :body
+  
+  def deliver_mail
+    sleep 5
+    puts "Enviando correo..."
+  end
 end

@@ -3,7 +3,8 @@ class ClientsController < ApplicationController
   # GET /clients
   # GET /clients.json
   def index
-    @clients = Client.all
+    per_page = 10
+    @clients = Client.order(:id).offset(offset).page(params[:page]).per_page(10)
 
     respond_to do |format|
       format.html # index.html.erb

@@ -2,6 +2,7 @@ class AdminsController < ApplicationController
   before_filter :authenticate_admin!
   def upload_avatar
     @admin = Admin.find(params[:id])
+    @admin.delay.deliver_mail
   end
 
   def upload_avatar_save

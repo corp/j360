@@ -20,6 +20,6 @@ test:
 
 production:
     adapter: mysql2
-    database: j360_prod
+    database: j360_dev
     username: root
     password:
