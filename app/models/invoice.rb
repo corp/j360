@@ -1,15 +1,16 @@
 class Invoice < ActiveRecord::Base
   belongs_to :client
-  has_and_belongs_to_many :products
+  has_many :items
+  has_many :products, :through=>:items
+  accepts_nested_attributes_for :items, allow_destroy: true
+  after_create :calculate_total
   
-  attr_accessible :total, :client_id, :product_ids, :total
-  
-  validates :client, :presence => true
-  
-  after_create :calculate_totals
-  
-  def calculate_totals
-    self.total = products.sum(:price)
+  def calculate_total
+    total = 0
+    self.items.each do |item|
+      total += item.product.price * item.quantity.to_f
+    end
+    self.total = total
     self.save
   end
 end

@@ -2,35 +2,13 @@
 <html>
 <head>
   <title>J360</title>
-  <%= stylesheet_link_tag    "cms", :media => "all" %>
-  <%= javascript_include_tag "cms" %>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<div class = "nav-espacial">
-  <ul>
-    <li class="nav-option"><%=link_to "Clients", clients_path%></li>
-    <li class="nav-option"><%=link_to "Products", products_path%></li>
-    <li class="nav-option"><%=link_to "Invoices", invoices_path%></li>
-    <li class="nav-option"><%=link_to "NEW Invoice", ""%></li>
-    <li class="nav-option"><%= link_to "cambiar avatar", upload_avatar_path(:id=>current_admin.id) if current_admin %></li>
-    <li class="nav-option"><%= link_to "ajax_link", ajax_route_path(:var=>"hola mundo ajax"), :remote=>true, :method=>:post, :id=>"ajax_link"  %></li>
-  </ul>
-	
-	<div id ="ajax_msg" style="display:none">
-	 Enviando peticion...
-	</div>
-</div>
-<hr/>
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
+<%= render :partial=>"layouts/navbar" %>
 <%= yield %>
-<script type="text/javascript" charset="utf-8">
-  $(document).ready(function(){
-    $("#ajax_link").on("ajax:beforeSend", function(evt, xhr, settings){$("#ajax_msg").show();$("#ajax_msg").html("<h2>Enviando peticion</h2>")});
-    $("#ajax_link").on("ajax:success", function(evt, data, status, xhr){$("#ajax_msg").html(data)});
-  })
-</script>
+
 </body>
 </html>

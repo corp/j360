@@ -1,25 +1,31 @@
 <h1>Listing invoices</h1>
 
 <table>
-  <tr>
-    <th>Total</th>
-    <th>Client</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+  <thead>
+    <tr>
+      <th>Client</th>
+      <th>Total items</th>
+      <th>Total</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
 
-<% @invoices.each do |invoice| %>
-  <tr>
-    <td><%= invoice.total %></td>
-    <td><%= invoice.client.full_name %></td>
-    <td><%= link_to 'Show', invoice %></td>
-    <td><%= link_to 'Edit', edit_invoice_path(invoice) %></td>
-    <td><%= link_to 'Destroy', invoice, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+  <tbody>
+    <% @invoices.each do |invoice| %>
+      <tr>
+        <td><%= invoice.client.fullname %></td>
+        <td><%= invoice.items.length %></td>
+        <td><%= invoice.total %></td>
+        <td><%= link_to 'Show', invoice %></td>
+        <td><%= link_to 'Edit', edit_invoice_path(invoice) %></td>
+        <td><%= link_to 'Destroy', invoice, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 
-<br />
+<br>
 
 <%= link_to 'New Invoice', new_invoice_path %>

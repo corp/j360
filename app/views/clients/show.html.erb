@@ -1,30 +1,29 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Name:</b>
+  <strong>Name:</strong>
   <%= @client.name %>
 </p>
 
 <p>
-  <b>Lastname:</b>
+  <strong>Lastname:</strong>
   <%= @client.lastname %>
 </p>
 
 <p>
-  <b>Email:</b>
+  <strong>Email:</strong>
   <%= @client.email %>
 </p>
 
 <p>
-  <b>Age:</b>
+  <strong>Age:</strong>
   <%= @client.age %>
 </p>
 
 <p>
-  <b>Is active:</b>
+  <strong>Is active:</strong>
   <%= @client.is_active %>
 </p>
-
 
 <%= link_to 'Edit', edit_client_path(@client) %> |
 <%= link_to 'Back', clients_path %>

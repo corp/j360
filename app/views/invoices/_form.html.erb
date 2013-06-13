@@ -12,22 +12,22 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :client %><br />
-    <%= f.collection_select(:client_id, @clients, :id, :full_name, :include_blank=>"Select one client...") %>
+    <%= f.label :client_id %><br>
+    <%= f.collection_select :client_id, Client.all, :id, :fullname, :prompt=>"Select one" %>
   </div>
-
-  <div class="field">
-    <%= f.label :products %><br />
-    <ul style="list-style:none">
-    <%Product.all.each do |product|%>
-      <li>
-        <%=f.check_box :product_ids, {:name=>"invoice[product_ids][]"},product.id %> 
-        <%=f.label product.name %>
-      </li>
-    <%end%>
-    </ul>
+  
+  <div class="invoce-items">
+    <table border="1" cellspacing="5" cellpadding="5">
+      <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+      </tr>
+      <%= f.fields_for(:items) do |builder|%>
+        <%= render :partial=> "item_fields", :locals=>{:f=>builder} %>
+      <% end %>
+    </table>
+    <%= link_to_add_fields "Add new one", f, :items %> 
   </div>
-
   <div class="actions">
     <%= f.submit %>
   </div>

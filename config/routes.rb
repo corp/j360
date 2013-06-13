@@ -1,19 +1,10 @@
 J360::Application.routes.draw do
-  put "admins/:id/upload_avatar" => "admins#upload_avatar_save", :as=>:upload_avatar
-  get "admins/:id/upload_avatar" => "admins#upload_avatar", :as=>:upload_avatar
-  post "ajax_route"=>"welcome#index", :as=>:ajax_route
-  put "ajax_route"=>"welcome#index", :as=>:ajax_route
-  delete "ajax_route"=>"welcome#index", :as=>:ajax_route
-  get "ajax_route"=>"welcome#index", :as=>:ajax_route
-  
-  devise_for :admins
-
-  devise_for :users
+  root :to => 'welcome#index'
+  resources :products
 
   resources :invoices
-  resources :products
-  resources :clients
 
+  resources :clients
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -64,7 +55,6 @@ J360::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'welcome#index'
 
   # See how all your routes lay out with "rake routes"
 

@@ -1,95 +1,60 @@
 class InvoicesController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :clean_arrays, :only=>[:create,:update]
-  
-  def clean_arrays
-    params[:invoice][:product_ids].delete("0")
-  end
-  
+  before_action :set_invoice, only: [:show, :edit, :update, :destroy]
+
   # GET /invoices
-  # GET /invoices.json
   def index
     @invoices = Invoice.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @invoices }
-    end
   end
 
   # GET /invoices/1
-  # GET /invoices/1.json
   def show
-    @invoice = Invoice.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @invoice }
-    end
   end
 
   # GET /invoices/new
-  # GET /invoices/new.json
   def new
     @invoice = Invoice.new
-    @clients = Client.dropdown
-    
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @invoice }
-    end
   end
 
   # GET /invoices/1/edit
   def edit
-    @invoice = Invoice.find(params[:id])
-    @clients = Client.dropdown
   end
 
   # POST /invoices
-  # POST /invoices.json
   def create
-    
-    @invoice = Invoice.new(params[:invoice])
+    @invoice = Invoice.new(invoice_params)
 
-    respond_to do |format|
-      if @invoice.save
-        format.html { redirect_to @invoice, notice: 'Invoice was successfully created.' }
-        format.json { render json: @invoice, status: :created, location: @invoice }
-      else
-        @clients = Client.dropdown
-        format.html { render action: "new" }
-        format.json { render json: @invoice.errors, status: :unprocessable_entity }
-      end
+    if @invoice.save
+      redirect_to @invoice, notice: 'Invoice was successfully created.'
+    else
+      render action: 'new'
     end
   end
 
-  # PUT /invoices/1
-  # PUT /invoices/1.json
+  # PATCH/PUT /invoices/1
   def update
-    @invoice = Invoice.find(params[:id])
-
-    respond_to do |format|
-      if @invoice.update_attributes(params[:invoice])
-        @invoice.calculate_totals
-        format.html { redirect_to @invoice, notice: 'Invoice was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @invoice.errors, status: :unprocessable_entity }
-      end
+    
+    if @invoice.update(invoice_params)
+      @invoice.calculate_total
+      redirect_to @invoice, notice: 'Invoice was successfully updated.'
+    else
+      render action: 'edit'
     end
   end
 
   # DELETE /invoices/1
-  # DELETE /invoices/1.json
   def destroy
-    @invoice = Invoice.find(params[:id])
     @invoice.destroy
-
-    respond_to do |format|
-      format.html { redirect_to invoices_url }
-      format.json { head :no_content }
-    end
+    redirect_to invoices_url, notice: 'Invoice was successfully destroyed.'
   end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_invoice
+      @invoice = Invoice.find(params[:id])
+    end
+
+    # Only allow a trusted parameter "white list" through.
+    def invoice_params
+      params.require(:invoice).permit(:total, :client_id, :items_attributes=>[:product_id, :quantity, :id])
+    end
 end

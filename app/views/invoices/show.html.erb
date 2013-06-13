@@ -1,19 +1,14 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Client:</b>
-  <%= @invoice.client.full_name %>
+  <strong>Total:</strong>
+  <%= @invoice.total %>
 </p>
 
 <p>
-  <b>Products:</b>
-  <ul>
-	<%@invoice.products.each do |product|%>
-	  <li><%=product.name%>... $<%=product.price%></li>
-	<%end%>
-  </ul>
+  <strong>Client:</strong>
+  <%= @invoice.client_id %>
 </p>
-
 
 <%= link_to 'Edit', edit_invoice_path(@invoice) %> |
 <%= link_to 'Back', invoices_path %>
